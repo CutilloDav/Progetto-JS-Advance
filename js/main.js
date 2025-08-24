@@ -1,14 +1,19 @@
+// Recupero elementi dal DOM
 const newsList = document.getElementById('news-list');
 const loadMoreBtn = document.getElementById('load-more');
 
+// Variabili per gestire news e paginazione
 let newsIds = [];
 let currentIndex = 0;
 const newsPerPage = 10;
 
+// Conversione in data leggibile
 function formatDate(timestamp) {
     const date = new Date(timestamp * 1000); 
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
 }
+
+// Creazione dell'elemento <li> con titolo e data della news
 
 function createNewsElement(news){
     const li = document.createElement('li');
@@ -25,6 +30,7 @@ function createNewsElement(news){
     return li;
 }
 
+// Caricamento del blocco di news
 function loadNews (){
     const idsToLoad = newsIds.slice(currentIndex, currentIndex + newsPerPage);
  
@@ -38,6 +44,7 @@ function loadNews (){
     })
  );
 
+
 Promise.all(fetchPromises).then(result =>{
     result.forEach(news => {
         if (news) {
@@ -46,14 +53,16 @@ Promise.all(fetchPromises).then(result =>{
         }
     });
 
-    currentIndex += newsPerPage;
+    currentIndex += newsPerPage; //aggiornamento dell'index per avere piu news
 
+    //Nascondo il pulsante se non ci sono più news
     if (currentIndex >= newsIds.length){
         loadMoreBtn.style.display = 'none';
     }
 });
 }
 
+//Recupero la lista degli ID e avvio il caricamento
 function init() {
     fetch('https://hacker-news.firebaseio.com/v0/newstories.json')
     .then(response => response.json())
@@ -66,6 +75,8 @@ function init() {
     });
 }
 
+//Event listener sul pulsande "Load More"
 loadMoreBtn.addEventListener('click', loadNews);
 
+//avvio dell'app
 init();
