@@ -21,6 +21,7 @@
   "homepage": "https://github.com/CutilloDav/Progetto-JS-Advance#readme",
   "dependencies": {
     "axios": "^1.11.0",
+    "lodash": "^4.17.21",
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"

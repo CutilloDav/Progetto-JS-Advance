@@ -1,5 +1,6 @@
 import '../css/style.css';
 import axios from 'axios';
+import _ from 'lodash';
 
 // Recupero elementi dal DOM
 const newsList = document.getElementById('news-list');
@@ -12,7 +13,7 @@ const newsPerPage = 10;
 
 // Conversione in data leggibile
 function formatDate(timestamp) {
-    const date = new Date(timestamp * 1000); 
+    const date = new Date(timestamp * 1000);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
 }
 
@@ -34,12 +35,13 @@ function createNewsElement(news) {
 
 // Caricamento del blocco di news
 async function loadNews() {
-    const idsToLoad = newsIds.slice(currentIndex, currentIndex + newsPerPage);
+    // Uso lodash.slice per selezionare il blocco di ID da caricare
+    const idsToLoad = _.slice(newsIds, currentIndex, currentIndex + newsPerPage);
 
     try {
         // Richieste multiple con axios
         const responses = await Promise.all(
-            idsToLoad.map(id =>
+            _.map(idsToLoad, id =>
                 axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
                     .then(res => res.data)
                     .catch(e => {
@@ -49,11 +51,13 @@ async function loadNews() {
             )
         );
 
-        responses.forEach(news => {
-            if (news) {
-                const newsItem = createNewsElement(news);
-                newsList.appendChild(newsItem);
-            }
+        // Pulisco i risultati eliminando i "null" con _.compact
+        const validNews = _.compact(responses);
+
+        // Itero con _.forEach
+        _.forEach(validNews, news => {
+            const newsItem = createNewsElement(news);
+            newsList.appendChild(newsItem);
         });
 
         currentIndex += newsPerPage; // aggiornamento dell'indice
