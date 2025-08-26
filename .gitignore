@@ -1,0 +1,10 @@
+# Ignora node_modules
+node_modules/
+
+# Ignora i log
+npm-debug.log
+yarn-error.log
+
+# Ignora i file di sistema
+.DS_Store
+Thumbs.db
