@@ -1,0 +1,29 @@
+{
+  "name": "javascript-advance-project-cutillo-davide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CutilloDav/Progetto-JS-Advance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CutilloDav/Progetto-JS-Advance/issues"
+  },
+  "homepage": "https://github.com/CutilloDav/Progetto-JS-Advance#readme",
+  "dependencies": {
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0"
+  }
+}
